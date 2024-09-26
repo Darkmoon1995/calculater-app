@@ -1,0 +1,163 @@
+﻿<Window x:Class="calculater_app.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:calculater_app"
+        mc:Ignorable="d"
+        Title="scientific calculator" MinHeight="620" MinWidth="417.5" Height="620" Width="334">
+
+    <Window.Resources>
+        <!-- Define colors for the buttons and theme -->
+        <Color x:Key="PrimaryBackgroundColor">#F3F3F3</Color>
+        <Color x:Key="PrimaryButtonBackgroundColor">#E6E6E6</Color>
+        <Color x:Key="PrimaryButtonBorderColor">#CCCCCC</Color>
+        <Color x:Key="PrimaryForegroundColor">#000000</Color>
+        <Color x:Key="ButtonHoverColor">#D5D5D5</Color>
+        <Color x:Key="ButtonPressedColor">#CCCCCC</Color>
+
+        <!-- Create brushes from colors -->
+        <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="{StaticResource PrimaryBackgroundColor}"/>
+        <SolidColorBrush x:Key="PrimaryButtonBackgroundBrush" Color="{StaticResource PrimaryButtonBackgroundColor}"/>
+        <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource PrimaryForegroundColor}"/>
+        <SolidColorBrush x:Key="PrimaryButtonBorderBrush" Color="{StaticResource PrimaryButtonBorderColor}"/>
+        <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource ButtonHoverColor}"/>
+        <SolidColorBrush x:Key="ButtonPressedBrush" Color="{StaticResource ButtonPressedColor}"/>
+
+        <!-- Button Style -->
+        <Style x:Key="CalculatorButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryButtonBackgroundBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource PrimaryForegroundBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryButtonBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ButtonHoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ButtonPressedBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource PrimaryBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <!-- Define row heights -->
+            <RowDefinition Height="Auto"/>
+            <!-- Display Row -->
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- Define columns -->
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Display -->
+        <TextBox Name="Display" Grid.Row="0" Grid.ColumnSpan="5" FontSize="24" FontWeight="Bold" Padding="10"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Right" Margin="5"
+                 IsReadOnly="True" Background="#FFF" />
+
+        <ToggleButton Name="ToggleButton" Content="Rad" Grid.Row="1" Grid.Column="3" Click="RadiansDegrees_Click"  Margin="5"/>
+
+        <!-- First Row (Functions) -->
+        <Button Content="sin" Grid.Row="1" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Sin_Click"/>
+        <Button Content="cos" Grid.Row="1" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Cos_Click"/>
+        <Button Content="tan" Grid.Row="1" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Tan_Click"/>
+
+
+        <!-- Second Row (Functions) -->
+        <Button Content="sin⁻¹" Grid.Row="2" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Asin_Click"/>
+        <Button Content="cos⁻¹" Grid.Row="2" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Acos_Click"/>
+        <Button Content="tan⁻¹" Grid.Row="2" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Atan_Click"/>
+        <Button Content="π" Grid.Row="2" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Pi_Click"/>
+        <Button Content="e" Grid.Row="2" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="E_Click"/>
+
+        <!-- Third Row (Functions) -->
+        <Button Content="xʸ" Grid.Row="3" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Power_Click"/>
+        <Button Content="x³" Grid.Row="3" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Cube_Click"/>
+        <Button Content="x²" Grid.Row="3" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Square_Click"/>
+        <Button Content="eˣ" Grid.Row="3" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Exponential_Click"/>
+        <Button Content="10ˣ" Grid.Row="3" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="PowerOf10_Click"/>
+
+        <!-- Fourth Row (Roots and Logarithms) -->
+        <Button Content="y√x" Grid.Row="4" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="YRootX_Click"/>
+        <Button Content="³√x" Grid.Row="4" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="CubeRoot_Click"/>
+        <Button Content="√x" Grid.Row="4" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="SquareRoot_Click"/>
+        <Button Content="ln" Grid.Row="4" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Ln_Click"/>
+        <Button Content="log" Grid.Row="4" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="Log_Click"/>
+
+        <!-- Fifth Row (Numbers) -->
+        <Button Content="(" Grid.Row="5" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="LeftParenthesis_Click"/>
+        <Button Content=")" Grid.Row="5" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="RightParenthesis_Click"/>
+        <Button Content="1/x" Grid.Row="5" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Inverse_Click"/>
+        <Button Content="%" Grid.Row="5" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Percent_Click"/>
+        <Button Content="n!" Grid.Row="5" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="Factorial_Click"/>
+
+        <!-- Sixth Row (Numbers) -->
+        <Button Content="7" Grid.Row="6" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="8" Grid.Row="6" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="9" Grid.Row="6" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="+" Grid.Row="6" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Add_Click"/>
+        <Button Content="Back" Grid.Row="6" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="Backspace_Click"/>
+
+        <!-- Seventh Row (Numbers and Operations) -->
+        <Button Content="4" Grid.Row="7" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="5" Grid.Row="7" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="6" Grid.Row="7" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="-" Grid.Row="7" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Subtract_Click"/>
+        <Button Content="Ans" Grid.Row="7" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="Ans_Click"/>
+
+        <!-- Eighth Row (Numbers and Operations) -->
+        <Button Content="1" Grid.Row="8" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="2" Grid.Row="8" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="3" Grid.Row="8" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="x" Grid.Row="8" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Multiply_Click"/>
+        <Button Content="M+" Grid.Row="8" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="MemoryAdd_Click"/>
+
+        <!-- Ninth Row (Numbers and Operations) -->
+        <Button Content="0" Grid.Row="9" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="Digit_Click"/>
+        <Button Content="." Grid.Row="9" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Decimal_click"/>
+        <Button Content="EXP" Grid.Row="9" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="Exp_Click"/>
+        <Button Content="÷" Grid.Row="9" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Divide_Click"/>
+        <Button Content="M-" Grid.Row="9" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="MemorySubtract_Click"/>
+
+        <!-- Tenth Row (Clear Functions and Memory Operations) -->
+        <Button Content="±" Grid.Row="10" Grid.Column="0" Style="{StaticResource CalculatorButtonStyle}" Click="PlusMinus_Click"/>
+        <Button Content="RND" Grid.Row="10" Grid.Column="1" Style="{StaticResource CalculatorButtonStyle}" Click="Rnd_Click"/>
+        <Button Content="AC" Grid.Row="10" Grid.Column="2" Style="{StaticResource CalculatorButtonStyle}" Click="ClearAll_Click"/>
+        <Button Content="=" Grid.Row="10" Grid.Column="3" Style="{StaticResource CalculatorButtonStyle}" Click="Equals_Click"/>
+        <Button Content="MR" Grid.Row="10" Grid.Column="4" Style="{StaticResource CalculatorButtonStyle}" Click="MemoryRecall_Click"/>
+
+    </Grid>
+</Window>
